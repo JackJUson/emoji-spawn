@@ -8,10 +8,11 @@ export default function Home() {
   const [emojis, setEmojis] = useState([]);
   const [loading, setLoading] = useState(false);
   const [emojisLoaded, setEmojisLoaded] = useState(false);
+  const [poppingEmojis, setPoppingEmojis] = useState([]);
 
   const isFlagEmoji = (emoji) => {
     const codePoints = Array.from(emoji.character).map((char) => char.codePointAt(0));
-    return codePoints.some((point) => point >= 0x1F1E6 && point <= 0x1F1FF);
+    return codePoints.some((point) => point >= 0x1f1e6 && point <= 0x1f1ff);
   };
 
   const isEmojiFromUnicode12OrEarlier = (emoji) => {
@@ -27,7 +28,8 @@ export default function Home() {
         `https://emoji-api.com/emojis?access_key=${process.env.NEXT_PUBLIC_EMOJI_KEY}`
       );
       const filteredEmojis = response.data.filter(
-        (emoji) => !isFlagEmoji(emoji) && isEmojiFromUnicode12OrEarlier(emoji) && emoji.group !== 'symbols'
+        (emoji) =>
+          !isFlagEmoji(emoji) && isEmojiFromUnicode12OrEarlier(emoji) && emoji.group !== 'symbols'
       );
       setEmojis(filteredEmojis);
       setEmojisLoaded(true);
@@ -46,6 +48,18 @@ export default function Home() {
     const randomEmoji = emojis[Math.floor(Math.random() * emojis.length)];
     setEmoji(randomEmoji.character);
     setLoading(false);
+    triggerPopAnimation(randomEmoji.character);
+  };
+
+  const triggerPopAnimation = (emoji) => {
+    const newPoppingEmojis = Array(5)
+      .fill()
+      .map((_, index) => ({
+        emoji,
+        animationClass: `emoji-pop${index + 1}`,
+      }));
+    setPoppingEmojis(newPoppingEmojis);
+    setTimeout(() => setPoppingEmojis([]), 3000);
   };
 
   return (
@@ -63,6 +77,11 @@ export default function Home() {
         {loading ? 'Loading...' : 'Click Me'}
       </button>
       <div className='text-6xl mt-6'>{emoji}</div>
+      {poppingEmojis.map((e, index) => (
+        <span key={index} className={`emoji-pop ${e.animationClass}`}>
+          {e.emoji}
+        </span>
+      ))}
     </main>
   );
 }

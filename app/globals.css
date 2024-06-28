@@ -1,3 +1,83 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@keyframes pop1 {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-100px, -100px) scale(2);
+  }
+}
+
+@keyframes pop2 {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(0, -100px) scale(2);
+  }
+}
+
+@keyframes pop3 {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(100px, -100px) scale(2);
+  }
+}
+
+@keyframes pop4 {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-100px, 100px) scale(2);
+  }
+}
+
+@keyframes pop5 {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(100px, 100px) scale(2);
+  }
+}
+
+.emoji-pop {
+  position: absolute;
+  font-size: 2rem;
+}
+
+.emoji-pop1 {
+  animation: pop1 3s forwards;
+}
+
+.emoji-pop2 {
+  animation: pop2 3s forwards;
+}
+
+.emoji-pop3 {
+  animation: pop3 3s forwards;
+}
+
+.emoji-pop4 {
+  animation: pop4 3s forwards;
+}
+
+.emoji-pop5 {
+  animation: pop5 3s forwards;
+}
