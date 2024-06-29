@@ -62,7 +62,7 @@ export default function Home() {
   return (
     <main className='min-h-screen w-full relative flex flex-col items-center justify-center gap-10'>
       <div ref={emojiRef} className='text-9xl heartbeat'>
-        {emoji}
+        {emoji ? emoji : '🤔'}
       </div>
       {/* {poppingEmojis.map((e, index) => (
         <span key={index} className={`emoji-pop ${e.animationClass} mb-96`}>
@@ -73,11 +73,13 @@ export default function Home() {
         Get your Emoji! 🎯
       </h1>
       <button
-        className='text-6xl font-extrabold tracking-tight z-50 text-white bg-green-500 px-14 py-6 rounded-full active:scale-95 active:bg-green-600'
+        className={`text-6xl font-extrabold tracking-tight z-50 text-white bg-green-500 px-14 py-6 rounded-full ${
+          emojisLoaded ? 'active:scale-95 active:bg-green-600' : ''
+        }`}
         onClick={fetchRandomEmoji}
         disabled={loading || !emojisLoaded}
       >
-        {loading ? 'Loading...' : 'Click Me'}
+        {emojisLoaded ? 'Click Me' : 'Loading...'}
       </button>
     </main>
   );
