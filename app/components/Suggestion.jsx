@@ -49,9 +49,9 @@ const Suggestion = () => {
           id='emojiSearch'
           type='text'
           placeholder='Describe your feeling...'
-          className='w-full p-4 text-lg border-2 border-green-300 rounded-lg focus:outline-none focus:border-green-500'
+          className='w-full p-4 text-lg border-2 border-green-300 rounded-lg focus:outline-none focus:border-green-500 tracking-tight '
         />
-        <button className='w-full p-4 text-lg font-semibold text-white bg-green-500 rounded-lg hover:bg-green-600 focus:outline-none focus:ring-4 focus:ring-green-300'>
+        <button className='w-full p-4 text-lg font-semibold text-white tracking-tight bg-green-500 rounded-lg hover:bg-green-600 focus:outline-none focus:ring-4 focus:ring-green-300'>
           Suggest Emojis
         </button>
       </div>
