@@ -64,11 +64,6 @@ const Hero = () => {
       <div ref={emojiRef} className='text-9xl heartbeat'>
         {emoji ? emoji : '🤔'}
       </div>
-      {/* {poppingEmojis.map((e, index) => (
-    <span key={index} className={`emoji-pop ${e.animationClass} mb-96`}>
-      {e.emoji}
-    </span>
-  ))} */}
       <h1 className='scroll-m-20 text-6xl font-extrabold tracking-tight mt-40 mb-12'>
         Get your Emoji! 🎯
       </h1>
