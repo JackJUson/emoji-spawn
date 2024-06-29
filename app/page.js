@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 
 export default function Home() {
@@ -8,7 +8,7 @@ export default function Home() {
   const [emojis, setEmojis] = useState([]);
   const [loading, setLoading] = useState(false);
   const [emojisLoaded, setEmojisLoaded] = useState(false);
-  const [poppingEmojis, setPoppingEmojis] = useState([]);
+  const emojiRef = useRef(null);
 
   const isFlagEmoji = (emoji) => {
     const codePoints = Array.from(emoji.character).map((char) => char.codePointAt(0));
@@ -48,27 +48,30 @@ export default function Home() {
     const randomEmoji = emojis[Math.floor(Math.random() * emojis.length)];
     setEmoji(randomEmoji.character);
     setLoading(false);
-    triggerPopAnimation(randomEmoji.character);
+    triggerHeartbeatAnimation();
   };
 
-  const triggerPopAnimation = (emoji) => {
-    const newPoppingEmojis = Array(5)
-      .fill()
-      .map((_, index) => ({
-        emoji,
-        animationClass: `emoji-pop${index + 1}`,
-      }));
-    setPoppingEmojis(newPoppingEmojis);
-    setTimeout(() => setPoppingEmojis([]), 1000);
+  const triggerHeartbeatAnimation = () => {
+    if (emojiRef.current) {
+      emojiRef.current.classList.remove('heartbeat-animation');
+      void emojiRef.current.offsetWidth;
+      emojiRef.current.classList.add('heartbeat-animation');
+    }
   };
 
   return (
-    <main className='min-h-screen w-full relative flex flex-col items-center justify-center'>
-      <h1 className='scroll-m-20 text-6xl font-extrabold tracking-tight'>
-        Shoot for your Emoji! 🎯
+    <main className='min-h-screen w-full relative flex flex-col items-center justify-center gap-10'>
+      <div ref={emojiRef} className='text-9xl heartbeat'>
+        {emoji}
+      </div>
+      {/* {poppingEmojis.map((e, index) => (
+        <span key={index} className={`emoji-pop ${e.animationClass} mb-96`}>
+          {e.emoji}
+        </span>
+      ))} */}
+      <h1 className='scroll-m-20 text-6xl font-extrabold tracking-tight mt-40 mb-12'>
+        Get your Emoji! 🎯
       </h1>
-      <br />
-      <br />
       <button
         className='text-6xl font-extrabold tracking-tight z-50 text-white bg-green-500 px-14 py-6 rounded-full active:scale-95 active:bg-green-600'
         onClick={fetchRandomEmoji}
@@ -76,12 +79,6 @@ export default function Home() {
       >
         {loading ? 'Loading...' : 'Click Me'}
       </button>
-      <div className='text-6xl mt-6'>{emoji}</div>
-      {poppingEmojis.map((e, index) => (
-        <span key={index} className={`emoji-pop ${e.animationClass}`}>
-          {e.emoji}
-        </span>
-      ))}
     </main>
   );
 }
