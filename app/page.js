@@ -59,7 +59,7 @@ export default function Home() {
         animationClass: `emoji-pop${index + 1}`,
       }));
     setPoppingEmojis(newPoppingEmojis);
-    setTimeout(() => setPoppingEmojis([]), 3000);
+    setTimeout(() => setPoppingEmojis([]), 1000);
   };
 
   return (
@@ -70,7 +70,7 @@ export default function Home() {
       <br />
       <br />
       <button
-        className='text-6xl font-extrabold tracking-tight text-white bg-green-500 px-14 py-6 rounded-full active:scale-95 active:bg-green-600'
+        className='text-6xl font-extrabold tracking-tight z-50 text-white bg-green-500 px-14 py-6 rounded-full active:scale-95 active:bg-green-600'
         onClick={fetchRandomEmoji}
         disabled={loading || !emojisLoaded}
       >
